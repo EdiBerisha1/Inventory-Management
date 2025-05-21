@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
+import dashboardRoutes from "./routes/dashboardRoutes";
 
 dotenv.config();
 
@@ -14,13 +15,13 @@ app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 app.use(morgan("common"));
 app.use(cors());
 
+// ROUTES
+
 app.get("/", (req, res) => {
   res.send("API is running");
 });
 
-app.get("/hello", (req, res) => {
-  res.send("hello world");
-});
+app.use("/dashboard", dashboardRoutes); // http://localhost:8000/dashboard
 
 const port = process.env.PORT || 3001;
 app.listen(port, () => {
